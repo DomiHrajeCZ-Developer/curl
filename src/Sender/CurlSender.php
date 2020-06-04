@@ -42,7 +42,7 @@ class CurlSender {
     public function makeRequest(): Response {
         $this->response = ResponseFactory::create($this->curl->getBody(), $this->curl->getInfo(), $this->headers);
         $this->curl->close();
-        if($this->request->getClient()->isDebuggerEnabled())
+        if($this->request->getClient()->isLoggerEnabled())
             $this->request->getClient()->getLogger()->log($this);
         return $this->getResponse();
     }

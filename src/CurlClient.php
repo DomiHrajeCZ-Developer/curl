@@ -20,15 +20,15 @@ use ymastersk\Curl\Tracy\Logger;
 
 class CurlClient extends Settings {
 
-    /** @var bool test */
-    private $debugger;
+    /** @var bool */
+    private $loggerEnabled;
 
     /** @var Logger */
     private $logger;
 
-    public function __construct(bool $debugger, array $options, array $headers, array $cookies){
-        $this->debugger = $debugger;
-        if($debugger){
+    public function __construct(bool $loggerEnabled = true, array $options = [], array $headers = [], array $cookies = []){
+        $this->loggerEnabled = $loggerEnabled;
+        if($this->loggerEnabled){
             $this->logger = new Logger;
             Debugger::getBar()->addPanel(new CurlPanel($this));
         }
@@ -201,12 +201,12 @@ class CurlClient extends Settings {
         return $this->request(Request::DELETE, $url, $params);
     }
 
-    public function isDebuggerEnabled(): bool {
-        return $this->debugger;
+    public function isLoggerEnabled(): bool {
+        return $this->loggerEnabled;
     }
 
     public function getLogger(): Logger {
-        if(!$this->debugger)
+        if(!$this->isLoggerEnabled())
             throw new LoggerException('Logger is not enabled.');
         return $this->logger;
     }
