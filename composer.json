@@ -1,0 +1,25 @@
+{
+    "name": "ymastersk/curl",
+    "description": "This extension for Nette Framework is simple cURL PHP wrapper for sending HTTP requests.",
+    "type": "library",
+    "require": {
+        "php": ">=7.1",
+        "nette/di": "^3.0",
+        "nette/http": "^3.0",
+        "tracy/tracy": "^2.7"
+    },
+    "license": "GPL-3.0-only",
+    "authors": [
+        {
+            "name": "ymastersk",
+            "email": "me@ymastersk.net",
+            "homepage": "https://ymastersk.net"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "minimum-stability": "stable"
+}

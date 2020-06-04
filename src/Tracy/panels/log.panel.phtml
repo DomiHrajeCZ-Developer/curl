@@ -1,0 +1,60 @@
+<?php
+
+/*
+ * This file is part of the cURL Library.
+ * By ymastersk (https://ymastersk.net).
+ */
+
+declare(strict_types=1);
+
+namespace ymastersk\Curl\Tracy;
+
+use Tracy\Dumper;
+use Tracy\Helpers;
+
+$count = count($entities);
+
+?>
+
+<h1>cURL Logger</h1>
+<div class="tracy-inner tracy-InfoPanel">
+    <div class="tracy-inner-container">
+        <?php if($count > 0): ?>
+            <table class="tracy-sortable" style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td>Requests</td>
+                        <td><?= $count ?></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <table class="tracy-sortable" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Time</th>
+                        <th>Url</th>
+                        <th>Status Code</th>
+                        <th>Parameters</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($entities as $entity): ?>
+                    <tr>
+                        <td><?= Helpers::escapeHtml($entity->getMethod()) ?></td>
+                        <td><?= Helpers::escapeHtml($entity->getTime()) ?> ms</td>
+                        <td><a href="<?= Helpers::escapeHtml($entity->getUrl()) ?>" target="_blank"><?= Helpers::escapeHtml($entity->getUrl()) ?></a></td>
+                        <td><?= Helpers::escapeHtml($entity->getCode()) ?></td>
+                        <td><?= empty($entity->getParams()) ? 'No parameters.' : Dumper::toHtml($entity->getParams()) ?></td>
+                        <td><?= Dumper::toHtml($entity->getOptions()) ?></td>
+                    </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>There are no logged requests.</p>
+        <?php endif ?>
+    </div>
+</div>
